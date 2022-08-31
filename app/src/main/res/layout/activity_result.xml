@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResultActivity">
+    <com.github.mikephil.charting.charts.PieChart
+        android:layout_centerHorizontal="true"
+        android:id="@+id/peichartview_id"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        />
+
+    <EditText
+        android:inputType="number"
+        android:id="@+id/inputcaloryedt_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/peichartview_id"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:hint="Enter Your Intake Calorie"
+        android:paddingHorizontal="30dp"
+        android:textSize="18sp" />
+    <Button
+        android:id="@+id/getcalorydeficitbrn_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inputcaloryedt_id"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="20dp"
+        android:backgroundTint="#123456"
+        android:textColor="#FFFFFF"
+        android:text="Get Calorie Deficit"
+        />
+
+    <TextView
+        android:id="@+id/dummytxtid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/getcalorydeficitbrn_id"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="Your Calorie Deficit is "
+        android:textColor="@color/md_light_blue_600"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textviewlastvalueid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dummytxtid"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="0"
+        android:textColor="@color/md_light_blue_600"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/dummytxt2id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textviewlastvalueid"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="Total Calorie Burn "
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textview2lastvalueid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textviewlastvalueid"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:text="0"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+</RelativeLayout>
