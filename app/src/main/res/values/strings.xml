@@ -41,4 +41,6 @@
     <string name="hint_phone">Phone</string>
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="registered_signin">Registered? Sign In</string>
+    <string name="logout">Logout</string>
+    <string name="about">About</string>
 </resources>

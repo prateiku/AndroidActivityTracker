@@ -402,6 +402,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user!=null){
             Log.d("STATTT", String.valueOf(user));
+            SharedPreferences prefs = getSharedPreferences("Profile", MODE_PRIVATE);
+            int idName = prefs.getInt("Height", 0); //0 is the default value.
+            if(idName==0) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                //     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
         } else {
             Log.d("STATTT", "not_signed_in");
             Intent intent = new Intent(MainActivity.this, SignupActivity.class);
@@ -409,13 +417,5 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             startActivity(intent);
             finish();
         }
-//        SharedPreferences prefs = getSharedPreferences("Profile", MODE_PRIVATE);
-//        int idName = prefs.getInt("Height", 0); //0 is the default value.
-//        if(idName==0){
-//            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-//       //     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//            startActivity(intent);
-//            finish();
-//        }
-    }
+        }
 }
