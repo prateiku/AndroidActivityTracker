@@ -162,17 +162,27 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/detailsTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:background="#5C6BC0"
-                        android:gravity="center"
-                        android:text="@string/detailsTitle"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textColor="#ffffff"
-                        android:textSize="29sp"
-                        android:textStyle="bold"
-                        app:textAllCaps="false" />
+    <TextView
+        android:id="@+id/detailsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="#5C6BC0"
+        android:gravity="center"
+        android:text="@string/detailsTitle"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#ffffff"
+        android:textSize="29sp"
+        android:textStyle="bold"
+        app:textAllCaps="false" />
 
-                </RelativeLayout>
+    <TextView
+        android:id="@+id/user_name_welcome"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="51dp"
+        android:gravity="center"
+        android:textSize="20dp"/>
+
+</RelativeLayout>

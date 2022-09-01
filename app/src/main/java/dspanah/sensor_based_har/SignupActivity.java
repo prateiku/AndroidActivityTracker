@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.Objects;
 
@@ -81,6 +83,21 @@ public class SignupActivity extends AppCompatActivity {
                 mAuth.createUserWithEmailAndPassword(email_str,password).addOnCompleteListener(task -> {
                     if(task.isSuccessful())
                     {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(username).build();
+
+                        assert user != null;
+                        user.updateProfile(profileUpdates)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.d("USER_NAME", "User name set.");
+                                        }
+                                    }
+                                });
                         Toast.makeText(SignupActivity.this,"You are successfully Registered", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                         startActivity(intent);

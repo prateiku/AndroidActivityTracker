@@ -7,15 +7,22 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity {
       EditText heightedt, weightedt , ageedt ;
       RadioButton malebtn , femalebtn ;
       Button savebtn;
+      TextView welcome_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +33,9 @@ public class ProfileActivity extends AppCompatActivity {
         malebtn = findViewById(R.id.maleradiobtnid);
         femalebtn = findViewById(R.id.femaleradiobtnid);
         savebtn = findViewById(R.id.savebtnid);
+        welcome_text = findViewById(R.id.user_name_welcome);
+        String welcome_str = "Welcome, " + Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName();
+        welcome_text.setText(welcome_str);
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

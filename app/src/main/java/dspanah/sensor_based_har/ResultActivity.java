@@ -47,7 +47,7 @@ public class ResultActivity extends AppCompatActivity {
         getresultbtn = findViewById(R.id.getcalorydeficitbrn_id);
         inputcaledt = findViewById(R.id.inputcaloryedt_id);
         resulttxt = findViewById(R.id.textviewlastvalueid);
-         resulttextview2 = findViewById(R.id.textview2lastvalueid);
+        resulttextview2 = findViewById(R.id.textview2lastvalueid);
 
 
         arrytimer = Objects.requireNonNull(getIntent().
