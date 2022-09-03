@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
+    android:background="@color/colorPrimaryDark"
     tools:context=".ProfileActivity">
 
     <LinearLayout
@@ -15,6 +16,7 @@
         android:layout_marginTop="100dp"
         android:orientation="vertical"
         android:paddingTop="10dp">
+
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,139 +40,153 @@
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="12dp"
                     android:background="@android:color/transparent"
-                    android:importantForAutofill="no"
+                    android:drawableStart="@drawable/height"
+                    android:drawableLeft="@drawable/height"
+                    android:drawablePadding="12dp"
                     android:hint="@string/heightedtid"
                     android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
                     android:minWidth="320dp"
                     android:minHeight="50dp"
-                    android:inputType="number"
                     android:singleLine="true"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </androidx.cardview.widget.CardView>
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.cardview.widget.CardView>
 
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
-                            app:cardBackgroundColor="#F7F7F7"
-                            app:cardCornerRadius="24dp"
-                            app:cardElevation="0dp">
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#F7F7F7"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                app:hintEnabled="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:hintEnabled="false">
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/weightedtid"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="12dp"
-                                    android:layout_marginRight="12dp"
-                                    android:background="@android:color/transparent"
-                                    android:importantForAutofill="no"
-
-                                    android:hint="@string/weightedtid"
-                                    android:imeOptions="actionNext"
-                                    android:inputType="number"
-                                    android:minWidth="320dp"
-                                    android:minHeight="50dp"
-                                    android:singleLine="true"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"/>
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </androidx.cardview.widget.CardView>
-
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
-                            app:cardBackgroundColor="#F7F7F7"
-                            app:cardCornerRadius="24dp"
-                            app:cardElevation="0dp">
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                app:hintEnabled="false">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ageedtid"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="12dp"
-                                    android:layout_marginRight="12dp"
-                                    android:background="@android:color/transparent"
-                                    android:importantForAutofill="no"
-                                    android:hint="@string/ageedtid"
-                                    android:imeOptions="actionNext"
-                                    android:inputType="number"
-                                    android:minWidth="320dp"
-                                    android:minHeight="50dp"
-                                    android:singleLine="true"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"/>
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </androidx.cardview.widget.CardView>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/weightedtid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/weightedtid"
+                    android:drawableStart="@drawable/weight_scale"
+                    android:drawableLeft="@drawable/weight_scale"
+                    android:drawablePadding="12dp"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="320dp"
+                    android:minHeight="50dp"
+                    android:singleLine="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.cardview.widget.CardView>
 
 
-                        <RadioGroup
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="30dp"
-                            android:orientation="horizontal">
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#F7F7F7"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp">
 
-                            <RadioButton
-                                android:id="@+id/maleradiobtnid"
-                                android:layout_width="wrap_content"
-                                android:layout_height="48dp"
-                                android:checked="true"
-                                android:paddingEnd="50dp"
-                                android:text="@string/maleradiobtnid"
-                                android:textColor="#D81B60"
-                                tools:ignore="TextContrastCheck" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:hintEnabled="false">
 
-                            <RadioButton
-                                android:id="@+id/femaleradiobtnid"
-                                android:layout_width="wrap_content"
-                                android:layout_height="48dp"
-                                android:text="@string/femaleradiobtnid" />
-                        </RadioGroup>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ageedtid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/ageedtid"
+                    android:drawableStart="@drawable/age_group"
+                    android:drawableLeft="@drawable/age_group"
+                    android:drawablePadding="12dp"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:minWidth="320dp"
+                    android:minHeight="50dp"
+                    android:singleLine="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.cardview.widget.CardView>
 
-                        <Button
-                            android:id="@+id/savebtnid"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="40dp"
-                            android:layout_marginTop="30dp"
-                            android:backgroundTint="#0E4E8C"
-                            android:text="@string/savebtnid"
-                            android:textColor="#E19928"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
 
-                    </LinearLayout>
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/maleradiobtnid"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:checked="true"
+                android:paddingEnd="50dp"
+                android:text="@string/maleradiobtnid"
+                android:textColor="@color/colorBackground"
+                android:textStyle="bold"
+                android:buttonTint="@color/colorAccent"
+                tools:ignore="TextContrastCheck" />
+
+            <RadioButton
+                android:id="@+id/femaleradiobtnid"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="@string/femaleradiobtnid"
+                android:buttonTint="@color/colorAccent"
+                android:textColor="@color/colorBackground"
+                android:textStyle="bold" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/savebtnid"
+            style="@style/Button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/savebtnid"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/detailsTitle"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:background="#5C6BC0"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:text="@string/detailsTitle"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorAccent"
         android:textSize="29sp"
         android:textStyle="bold"
         app:textAllCaps="false" />
@@ -182,7 +198,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="51dp"
+        android:textColor="@color/colorAccent"
         android:gravity="center"
-        android:textSize="20dp"/>
+        android:textSize="20dp" />
 
 </RelativeLayout>
