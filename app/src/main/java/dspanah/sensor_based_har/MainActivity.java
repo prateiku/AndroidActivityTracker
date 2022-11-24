@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -76,12 +77,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private float[] results;
     private HARClassifier classifier;
 
-    private String[] labels = {"Biking", "Downstairs", "Jogging", "Sitting", "Standing", "Upstairs", "Walking"};
+    private final String[] labels = {"Biking", "Downstairs", "Jogging", "Sitting", "Standing", "Upstairs", "Walking"};
     private long[]  arrytimer ={0,0,0,0,0,0,0};
     long starttime , endtime ;
     Boolean onoff = false;
     int  lastidx = -1 ;
     ImageButton startbtn;
+    private int bg_color = R.color.colorTransparent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,21 +94,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         gx = new ArrayList<>(); gy = new ArrayList<>(); gz = new ArrayList<>();
         ma = new ArrayList<>(); ml = new ArrayList<>(); mg = new ArrayList<>();
 
-        bikingTextView = (TextView) findViewById(R.id.biking_prob);
-        downstairsTextView = (TextView) findViewById(R.id.downstairs_prob);
-        joggingTextView = (TextView) findViewById(R.id.jogging_prob);
-        sittingTextView = (TextView) findViewById(R.id.sitting_prob);
-        standingTextView = (TextView) findViewById(R.id.standing_prob);
-        upstairsTextView = (TextView) findViewById(R.id.upstairs_prob);
-        walkingTextView = (TextView) findViewById(R.id.walking_prob);
+        bikingTextView = findViewById(R.id.biking_prob);
+        downstairsTextView = findViewById(R.id.downstairs_prob);
+        joggingTextView = findViewById(R.id.jogging_prob);
+        sittingTextView = findViewById(R.id.sitting_prob);
+        standingTextView = findViewById(R.id.standing_prob);
+        upstairsTextView = findViewById(R.id.upstairs_prob);
+        walkingTextView = findViewById(R.id.walking_prob);
 
-        bikingTableRow = (TableRow) findViewById(R.id.biking_row);
-        downstairsTableRow = (TableRow) findViewById(R.id.downstairs_row);
-        joggingTableRow = (TableRow) findViewById(R.id.jogging_row);
-        sittingTableRow = (TableRow) findViewById(R.id.sitting_row);
-        standingTableRow = (TableRow) findViewById(R.id.standing_row);
-        upstairsTableRow = (TableRow) findViewById(R.id.upstairs_row);
-        walkingTableRow = (TableRow) findViewById(R.id.walking_row);
+        bikingTableRow = findViewById(R.id.biking_row);
+        downstairsTableRow = findViewById(R.id.downstairs_row);
+        joggingTableRow = findViewById(R.id.jogging_row);
+        sittingTableRow = findViewById(R.id.sitting_row);
+        standingTableRow = findViewById(R.id.standing_row);
+        upstairsTableRow = findViewById(R.id.upstairs_row);
+        walkingTableRow = findViewById(R.id.walking_row);
 
         startbtn = findViewById(R.id.starttime_id);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -124,30 +126,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         textToSpeech = new TextToSpeech(this, this);
         textToSpeech.setLanguage(Locale.US);
-        startbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(onoff)
-                {
-                    startbtn.setImageDrawable(
-                            ContextCompat.getDrawable(getApplicationContext(), R.drawable.start));
-                    endtime = System.currentTimeMillis();
-                    long diff = (endtime-starttime)/1000;
-                    arrytimer[lastidx] = arrytimer[lastidx]+diff;
-                    onoff = false;
-                    Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                    intent.putExtra("arrayoftime", arrytimer);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+        startbtn.setOnClickListener(view -> {
+            if(onoff)
+            {
+                startbtn.setImageDrawable(
+                        ContextCompat.getDrawable(getApplicationContext(), R.drawable.start));
+                endtime = System.currentTimeMillis();
+                long diff = (endtime-starttime)/1000;
+                arrytimer[lastidx] = arrytimer[lastidx]+diff;
+                onoff = false;
+                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                intent.putExtra("arrayoftime", arrytimer);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
 
-                }else
-                    {
-                    startbtn.setImageDrawable(
-                            ContextCompat.getDrawable(getApplicationContext(), R.drawable.stop));
-                    onoff = true;
-                    starttime = System.currentTimeMillis();
-                  //  Toast.makeText(MainActivity.this, ""+starttime/1000, Toast.LENGTH_SHORT).show();
-                }
+            }else{
+                bg_color = R.color.colorBlue;
+                startbtn.setImageDrawable(
+                        ContextCompat.getDrawable(getApplicationContext(), R.drawable.stop));
+                onoff = true;
+                starttime = System.currentTimeMillis();
+              //  Toast.makeText(MainActivity.this, ""+starttime/1000, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -272,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
 
             setProbabilities();
-            setRowsColor(idx);
+            setRowsColor(idx, bg_color);
 
             ax.clear(); ay.clear(); az.clear();
             lx.clear(); ly.clear(); lz.clear();
@@ -291,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         walkingTextView.setText(Float.toString(round(results[6], 2)));
     }
 
-    private void setRowsColor(int idx) {
+    private void setRowsColor(int idx, int bg_color) {
 
         bikingTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorTransparent, null));
         downstairsTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorTransparent, null));
@@ -308,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                lastidx = idx;
             }
 
-            bikingTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, null));
+            bikingTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), bg_color, null));
 
         }
             //bikingTextView.setBackgroundColor(Color.parseColor("#33B5E5"));
@@ -317,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 arraytimesetup();
                 lastidx = idx;
             }
-            downstairsTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, null));
+            downstairsTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), bg_color, null));
 
         }
         else if (idx == 2){
@@ -325,14 +324,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 arraytimesetup();
                 lastidx = idx;
             }
-            joggingTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, null));
+            joggingTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), bg_color, null));
         }
         else if (idx == 3){
             if(idx!=lastidx){
                 arraytimesetup();
                 lastidx = idx;
             }
-            sittingTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, null));
+            sittingTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), bg_color, null));
 
         }
         else if (idx == 4)
@@ -341,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 arraytimesetup();
                 lastidx = idx;
             }
-            standingTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, null));
+            standingTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), bg_color, null));
 
         }
         else if (idx == 5)
@@ -350,7 +349,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 arraytimesetup();
                 lastidx = idx;
             }
-            upstairsTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, null));
+            upstairsTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), bg_color, null));
 
         }
         else if (idx == 6)
@@ -359,7 +358,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 arraytimesetup();
                 lastidx = idx;
             }
-            walkingTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, null));
+            walkingTableRow.setBackgroundColor(ResourcesCompat.getColor(getResources(), bg_color, null));
 
         }
     }
@@ -388,7 +387,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private static float round(float d, int decimalPlace) {
         BigDecimal bd = new BigDecimal(Float.toString(d));
-        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        bd = bd.setScale(decimalPlace, RoundingMode.HALF_UP);
         return bd.floatValue();
     }
 

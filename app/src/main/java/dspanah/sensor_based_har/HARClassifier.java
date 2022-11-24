@@ -10,7 +10,7 @@ public class HARClassifier {
         System.loadLibrary("tensorflow_inference");
     }
 
-    private TensorFlowInferenceInterface inferenceInterface;
+    private final TensorFlowInferenceInterface inferenceInterface;
     private static final String MODEL_FILE = "file:///android_asset/frozen_HAR.pb";
     private static final String INPUT_NODE = "LSTM_1_input";
     private static final String[] OUTPUT_NODES = {"Dense_2/Softmax"};

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,7 +33,7 @@ import java.util.Objects;
 
 public class ResultActivity extends AppCompatActivity {
     private long[]  arrytimer ;
-    private String [] tag = {"Running","Downstrairs","Jogging","Sitting","Standing","Upstairs","Walking"};
+    private final String [] tag = {"Running","Downstrairs","Jogging","Sitting","Standing","Upstairs","Walking"};
     long totaltime =0;
     PieChart pieChart;
     Button getresultbtn;
@@ -78,6 +79,7 @@ public class ResultActivity extends AppCompatActivity {
         data.setValueFormatter(new PercentFormatter(pieChart));
         data.setValueTextSize(12f);
         data.setValueTextColor(Color.BLACK);
+        Log.d("PROBABS", String.valueOf(entries.get(0)));
 
         pieChart.setData(data);
         pieChart.invalidate();
@@ -126,11 +128,11 @@ public class ResultActivity extends AppCompatActivity {
         }else{
             BMR = 447.593 +(9.247*idweight)+(3.098*idheght)-(4.330*idage);
         }
-        Toast.makeText(this, "BMR Value is"+BMR, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "BMR Value is"+BMR+"Calories/day", Toast.LENGTH_LONG).show();
     }
 
     private void setuppiechart(){
-        pieChart.setDrawSliceText(false);
+        pieChart.setDrawEntryLabels(false);
         pieChart.setDrawHoleEnabled(true);
         pieChart.setUsePercentValues(true);
         pieChart.setEntryLabelColor(Color.BLACK);

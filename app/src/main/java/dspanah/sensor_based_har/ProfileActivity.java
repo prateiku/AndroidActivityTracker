@@ -35,6 +35,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
@@ -59,53 +60,51 @@ public class ProfileActivity extends AppCompatActivity {
         femalebtn = findViewById(R.id.femaleradiobtnid);
         savebtn = findViewById(R.id.savebtnid);
         welcome_text = findViewById(R.id.user_name_welcome);
-        String welcome_str = "Welcome, " + Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        final String u_name = user.getDisplayName();
+        String welcome_str = "Welcome, " + u_name;
         welcome_text.setText(welcome_str);
-        savebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                db = FirebaseFirestore.getInstance();
-                String heightinput = heightedt.getText().toString();
-                String weightinput = weightedt.getText().toString();
-                String ageinput = ageedt.getText().toString();
-                if (TextUtils.isEmpty(heightinput)) {
-                    heightedt.setError("Enter height");
-                } else if (TextUtils.isEmpty(weightinput)) {
-                    weightedt.setError("Enter Weight");
-                } else if (TextUtils.isEmpty(ageinput)) {
-                    ageedt.setError("Enter age");
+        savebtn.setOnClickListener(view -> {
+            db = FirebaseFirestore.getInstance();
+            String heightinput = heightedt.getText().toString();
+            String weightinput = weightedt.getText().toString();
+            String ageinput = ageedt.getText().toString();
+            if (TextUtils.isEmpty(heightinput)) {
+                heightedt.setError("Enter height");
+            } else if (TextUtils.isEmpty(weightinput)) {
+                weightedt.setError("Enter Weight");
+            } else if (TextUtils.isEmpty(ageinput)) {
+                ageedt.setError("Enter age");
+            } else {
+                SharedPreferences.Editor editor = getSharedPreferences("Profile", MODE_PRIVATE).edit();
+                editor.putInt("Height", Integer.parseInt(heightinput));
+                editor.putInt("Wight", Integer.parseInt(weightinput));
+                editor.putInt("age", Integer.parseInt(ageinput));
+                if (malebtn.isChecked()) {
+                    editor.putInt("Gender", 0);
                 } else {
-                    SharedPreferences.Editor editor = getSharedPreferences("Profile", MODE_PRIVATE).edit();
-                    editor.putInt("Height", Integer.parseInt(heightinput));
-                    editor.putInt("Wight", Integer.parseInt(weightinput));
-                    editor.putInt("age", Integer.parseInt(ageinput));
-                    if (malebtn.isChecked()) {
-                        editor.putInt("Gender", 0);
-                    } else {
-                        editor.putInt("Gender", 1);
-                    }
-                    editor.apply();
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    String user_id = user.getUid().trim();
-                    CollectionReference docRef = db.collection("userBioData");
-                    String Gender;
-                    if (malebtn.isChecked()){Gender="Male";}else{Gender="Female";}
-                    addDataToFirestore(docRef, user_id, heightinput, weightinput, ageinput, Gender);
-                    Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    editor.putInt("Gender", 1);
                 }
+                editor.apply();
+                CollectionReference docRef = db.collection("userBioData");
+                String Gender;
+                if (malebtn.isChecked()){Gender="Male";}else{Gender="Female";}
+                addDataToFirestore(docRef, user.getUid().trim(), u_name, heightinput, weightinput, ageinput, Gender, Calendar.getInstance().getTime());
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
     }
 
-    private void addDataToFirestore(CollectionReference docRef, String Uid, String Height, String Weight, String Age, String Gender) {
+    private void addDataToFirestore(CollectionReference docRef, String Uid, String Username, String Height, String Weight, String Age, String Gender, Date time_stamp) {
 
         // creating a collection reference
         // for our Firebase Firetore database.
         // adding our data to our biodata object class.
 
-        bioData biodata = new bioData(Uid, Weight, Height, Age, Gender);
+        bioData biodata = new bioData(Uid, Username, Weight, Height, Age, Gender, time_stamp);
         Log.d("RESUU", biodata.getUid());
         // below method is use to add data to Firebase Firestore.
         docRef.document(Uid)

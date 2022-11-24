@@ -19,10 +19,10 @@
         <TableRow
             android:id="@+id/title_row"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorAccent"
             android:padding="20dp"
-            android:textAlignment="center"
-            android:background="@color/colorAccent">
+            android:textAlignment="center">
 
             <TextView
                 android:id="@+id/title"
@@ -30,19 +30,19 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/activity"
                 android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
                 android:text="@string/probability"
                 android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textStyle="bold" />
 
         </TableRow>
 

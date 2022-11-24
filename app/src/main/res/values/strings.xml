@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Calorie-Meter</string>
+    <string name="app_name">HAR</string>
     <string name="activity">Activity</string>
     <string name="probability">Probability</string>
     <string name="downstairs">Downstairs</string>
@@ -10,8 +10,8 @@
     <string name="walking">Walking</string>
     <string name="biking">Biking</string>
     <string name="heightedtid">Enter Height in cm</string>
-    <string name="weightedtid">Enter Weight in cm</string>
-    <string name="ageedtid">Enter Age in cm</string>
+    <string name="weightedtid">Enter Weight in kg</string>
+    <string name="ageedtid">Enter Age in years</string>
     <string name="maleradiobtnid">Male</string>
     <string name="femaleradiobtnid">Female</string>
     <string name="savebtnid">SAVE</string>

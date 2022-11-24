@@ -1,5 +1,7 @@
 package dspanah.sensor_based_har.data;
 
+import com.google.firebase.Timestamp;
+
 import java.util.Date;
 
 public class bioData {
@@ -8,6 +10,8 @@ public class bioData {
     private String weight;
     private String age;
     private String gender;
+    private String username;
+    private Date date;
 //    private Date date;
 
     public bioData() {
@@ -16,13 +20,15 @@ public class bioData {
     }
 
     // Constructor for all variables.
-    public bioData(String uid, String weight, String height, String age, String gender) {
+    public bioData(String uid, String username, String weight, String height, String age, String gender, Date date) {
         // variables for storing our data.
         this.uid = uid;
         this.weight = weight;
         this.height = height;
         this.age = age;
         this.gender = gender;
+        this.username = username;
+        this.date = date;
 //        this.date = new java.util.Date();
     }
 
@@ -43,13 +49,13 @@ public class bioData {
         this.uid = uid;
     }
 
-//    public Date getdate() {
-//        return date;
-//    }
-//
-//    public void setDate(Date date) {
-//        this.date = date;
-//    }
+    public Timestamp getdate() {
+        return new Timestamp(date);
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     // getter methods for all variables.
     public String getWeight() {
@@ -75,5 +81,13 @@ public class bioData {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
