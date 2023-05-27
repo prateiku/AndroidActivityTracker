@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,9 +28,23 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firestore.v1.WriteResult;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class ResultActivity extends AppCompatActivity {
@@ -40,6 +56,8 @@ public class ResultActivity extends AppCompatActivity {
     EditText inputcaledt;
     double BMR,totalcalburn;
       TextView resulttxt , resulttextview2;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,15 +74,37 @@ public class ResultActivity extends AppCompatActivity {
         for(int i =0;i<7;i++){
             totaltime =totaltime+arrytimer[i];
         }
-
+        Map<String, Object> activity_map = new HashMap<String, Object>();
+        for(int i =0;i<tag.length;i++){
+            activity_map.put(tag[i], arrytimer[i]);
+        }
+        activity_map.put("uid", user.getUid());
+        Date date;
+        date = Calendar.getInstance().getTime();
+        Timestamp datetime = new Timestamp(date);
+        activity_map.put("date", datetime);
+        CollectionReference docRefdocRef = db.collection("userActivityData");
+        Task future = db.collection("userActivityData").add(activity_map)
+                .addOnSuccessListener(new OnSuccessListener() {
+                    @Override
+                    public void onSuccess(Object o) {
+                            Log.d("TAG_ZZ", "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG_ZZ", "Error writing document", e);
+                    }
+                });
         setuppiechart();
         ArrayList<PieEntry>entries = new ArrayList<>();
-       for(int j =0;j<7;j++){
-               entries.add(new PieEntry(arrytimer[j],tag[j]));
-       }
+        for(int j =0;j<7;j++){
+            entries.add(new PieEntry(arrytimer[j],tag[j]));
+        }
 
 
-            ArrayList<Integer>colors = new ArrayList<>();
+        ArrayList<Integer>colors = new ArrayList<>();
             for(int color: ColorTemplate.MATERIAL_COLORS){
                 colors.add(color);
             }
@@ -79,7 +119,6 @@ public class ResultActivity extends AppCompatActivity {
         data.setValueFormatter(new PercentFormatter(pieChart));
         data.setValueTextSize(12f);
         data.setValueTextColor(Color.BLACK);
-        Log.d("PROBABS", String.valueOf(entries.get(0)));
 
         pieChart.setData(data);
         pieChart.invalidate();
